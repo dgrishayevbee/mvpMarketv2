@@ -1,368 +1,320 @@
-// Единый источник контента главной страницы — редактируется через /admin
-// (см. src/context/ContentContext.jsx). Значения ниже — дефолты, которые
+// Единый источник контента — редактируется через /admin (см.
+// src/context/ContentContext.jsx). Значения ниже — дефолты, которые
 // используются, пока в localStorage нет сохранённых правок.
 //
-// Текущие дефолты — экспорт контента из /admin от 2026-09-11
-// (docs/content-2026-09-11.json): тексты решений, пакетов и тарифов от
-// пользователя. Поверх экспорта проставлены картинки, которых в нём не было:
-// иконки решений и пакетов из набора и иллюстрации тарифов в
-// public/images/tariffs (в экспорте одна из них лежала base64-строкой).
+// Структура и тексты собраны по эталонным экранам дизайн-системы
+// Beeline Business: каталог сервисов для ИП и самозанятых, тарифы «Дело»,
+// личный кабинет. Деньги в тенге, разряд — обычный пробел.
+
+export const CONTENT_VERSION = "v2-ds-1";
+
 export const defaultContent = {
-  categories: [
-    {
-      id: "employees",
-      label: "Для работы сотрудников",
-      icon: "nav-employees"
-    },
-    {
-      id: "internet",
-      label: "Интернет для бизнеса",
-      icon: "nav-internet"
-    },
-    {
-      id: "sales",
-      label: "Продажи и работа с клиентами",
-      icon: "nav-sales"
-    },
-    {
-      id: "management",
-      label: "Управление бизнесом",
-      icon: "nav-management"
-    },
-    {
-      id: "ai",
-      label: "AI для бизнеса",
-      icon: "nav-ai"
-    }
-  ],
-  quickLinks: [
-    {
-      id: "bundles",
-      label: "Готовые пакеты",
-      icon: "nav-packages"
-    },
-    {
-      id: "favorites",
-      label: "Избранное",
-      icon: "nav-favorites",
-      to: "/profile#favorites"
-    },
-    {
-      id: "subscriptions",
-      label: "Мои платежи",
-      icon: "nav-subscriptions",
-      to: "/profile"
-    },
-    {
-      id: "orders",
-      label: "История заказов",
-      icon: "nav-orders",
-      to: "/profile"
-    }
-  ],
-  supportLinks: [
-    {
-      id: "support",
-      label: "Поддержка",
-      icon: "nav-support"
-    },
-    {
-      id: "requests",
-      label: "История заявок",
-      icon: "nav-orders"
-    }
-  ],
-  segments: [
-    {
-      id: "all",
-      label: "Все решения"
-    },
-    {
-      id: "business",
-      label: "Решения для вашего бизнеса"
-    },
-    {
-      id: "office",
-      label: "Офис и совместная работа"
-    },
-    {
-      id: "trade",
-      label: "Для торговли"
-    }
-  ],
-  hero: {
-    title: "Подберём инфраструктуру для вашего бизнеса",
-    searchPlaceholder: "Опишите вашу задачу или спросите ИИ…",
-    prompts: [
-      "Все инструменты для предпринимателя",
-      "Бухгалтерия и crm для большого бизнеса",
-      "Автоматизировать продажи",
-      "Подобрать бизнес решения"
-    ]
+  brand: {
+    name: "Beeline Business",
+    account: "ИП Ахметов А.",
   },
+
+  // Пункты сайдбара. Каждый ведёт на реальный роут — пустых пунктов нет.
+  nav: [
+    { id: "catalog", label: "Каталог", to: "/", icon: "grid" },
+    { id: "cart", label: "Корзина", to: "/cart", icon: "cart" },
+    { id: "cabinet", label: "Кабинет", to: "/profile", icon: "home" },
+    { id: "seller", label: "Кабинет поставщика", to: "/seller", icon: "clipboard" },
+    { id: "admin", label: "Контент", to: "/admin", icon: "doc" },
+  ],
+
+  support: {
+    managerNote: "Менеджер Динара на связи до 19:00",
+  },
+
+  catalog: {
+    title: "Сервисы для бизнеса",
+    subtitle: "Решения для ИП и самозанятых — подключение онлайн, оплата в счёте",
+    searchPlaceholder: "Поиск по каталогу",
+  },
+
+  categories: [
+    { id: "connect", label: "Связь" },
+    { id: "accounting", label: "Бухгалтерия" },
+    { id: "payments", label: "Платежи" },
+    { id: "ads", label: "Реклама" },
+    { id: "docs", label: "Документы" },
+    { id: "security", label: "Безопасность" },
+  ],
+
   solutions: [
     {
-      id: "sol-ms365",
-      title: "Microsoft 365",
-      subtitle: "Цифровые инструменты для бизнеса",
-      icon: "📄",
-      imageUrl: "/images/icons/solutions/sol-ms365.svg",
-      category: "it-cloud",
-      segment: "office",
-      tags: [
-        "Облачный сервис",
-        "Хит"
-      ],
-      badges: [
-        "hit"
-      ],
-      price: 1833,
-      billing: "в месяц",
-      singleCta: true,
-      seller: "mvpMarket",
-      rating: 4.8,
-      reviewsCount: 96,
-      stock: 999,
+      id: "accounting-online",
+      title: "Онлайн-бухгалтерия",
+      subtitle: "Расчёт налогов, отчётность и напоминания о сроках для ИП на упрощёнке",
+      category: "accounting",
+      price: 4900,
+      priceNote: "в месяц",
+      icon: "book",
+      seller: "Beeline Business",
       features: [
-        "Word, Excel, PowerPoint",
-        "5 пользователей",
-        "1 ТБ облачного хранилища"
+        "Налоговый календарь с напоминаниями",
+        "Отчётность в КГД в один клик",
+        "Расчёт платежей за себя и сотрудников",
+        "Выгрузка первички бухгалтеру",
       ],
-      description: "Набор офисных приложений и облачное хранилище для команды — работайте над документами вместе, из любого места."
     },
     {
-      id: "sol-starter",
-      title: "Всё для бизнеса на старте",
-      subtitle: "Связь для предпринимателей",
-      icon: "🏢",
-      imageUrl: "/images/icons/solutions/sol-starter.svg",
-      category: "internet",
-      segment: "business",
-      tags: [
-        "Расширяем",
-        "Хит"
-      ],
-      badges: [
-        "hit"
-      ],
-      price: 15000,
-      billing: "в месяц",
-      seller: "mvpMarket",
-      rating: 4.6,
-      reviewsCount: 54,
-      stock: 999,
+      id: "acquiring",
+      title: "Эквайринг",
+      subtitle: "Приём карт и QR. Зачисление на счёт на следующий рабочий день",
+      category: "payments",
+      price: 0,
+      priceLabel: "от 1,9%",
+      priceNote: "с транзакции",
+      badge: "Хит",
+      icon: "card",
+      seller: "Beeline Business",
       features: [
-        "WhatsApp — безлимит",
-        "Telegram — безлимит",
-        "Cashback 7%"
+        "Карты, QR и платёжные ссылки",
+        "Зачисление на следующий рабочий день",
+        "Терминал в аренду или свой",
+        "Отчёт по операциям в кабинете",
       ],
-      description: "Мобильная связь и мессенджеры без ограничений для небольшой команды — чтобы оставаться на связи с клиентами."
     },
     {
-      id: "sol-sales",
-      title: "Увеличьте продажи",
-      subtitle: "Бизнес-Сейла",
-      icon: "📈",
-      imageUrl: "/images/icons/solutions/sol-sales.svg",
-      category: "sales",
-      segment: "business",
-      tags: [
-        "Продажи",
-        "Новинка"
-      ],
-      badges: [
-        "new"
-      ],
-      price: 25000,
-      billing: "в месяц",
-      seller: "mvpMarket",
-      rating: 4.5,
-      reviewsCount: 31,
-      stock: 999,
+      id: "pbx",
+      title: "Виртуальная АТС",
+      subtitle: "Один номер на всех сотрудников, запись разговоров и статистика",
+      category: "connect",
+      price: 3500,
+      priceNote: "в месяц",
+      icon: "phone",
+      seller: "Beeline Business",
       features: [
-        "WhatsApp — безлимит",
-        "Telegram — безлимит",
-        "Cashback 7%"
+        "Многоканальный номер",
+        "Запись и хранение разговоров 90 дней",
+        "Голосовое меню и переадресация",
+        "Статистика по сотрудникам",
       ],
-      description: "Инструменты для роста продаж: чаты с клиентами, кешбэк на покупки, безлимитная связь.",
-      singleCta: false
     },
     {
-      id: "sol-trade",
-      title: "Для торговли и услуг",
-      subtitle: "Бизнес-Трейд",
-      icon: "🛒",
-      imageUrl: "/images/icons/solutions/sol-trade.svg",
-      category: "sales",
-      segment: "trade",
-      tags: [
-        "Торговля и продажи"
-      ],
-      badges: [],
-      price: 40000,
-      billing: "в месяц",
-      seller: "mvpMarket",
-      rating: 4.4,
-      reviewsCount: 22,
-      stock: 999,
+      id: "kassa",
+      title: "Онлайн-касса",
+      subtitle: "Фискализация чеков и отчёты в КГД без отдельного оборудования",
+      category: "payments",
+      price: 2500,
+      priceNote: "в месяц",
+      icon: "box",
+      seller: "Beeline Business",
       features: [
-        "WhatsApp — безлимит",
-        "Telegram — безлимит",
-        "Cashback 7%"
+        "Фискализация чеков онлайн",
+        "Отчёты в КГД автоматически",
+        "Работа с телефона или планшета",
+        "Номенклатура до 10 000 позиций",
       ],
-      description: "Пакет связи и сервисов для точек продаж и сферы услуг."
-    }
+    },
+    {
+      id: "analytics",
+      title: "Аналитика продаж",
+      subtitle: "Выручка, средний чек и топ-товары по данным кассы и эквайринга",
+      category: "payments",
+      price: 0,
+      priceNote: "в тарифе",
+      icon: "chart",
+      seller: "Beeline Business",
+      features: [
+        "Выручка по дням и точкам",
+        "Средний чек и динамика",
+        "Топ-товары и возвраты",
+        "Выгрузка в таблицу",
+      ],
+    },
+    {
+      id: "edo",
+      title: "ЭДО и подпись",
+      subtitle: "Договоры и акты без бумаги, подписание ЭЦП прямо в кабинете",
+      category: "docs",
+      price: 1200,
+      priceNote: "в месяц",
+      icon: "signature",
+      seller: "Beeline Business",
+      features: [
+        "Подписание ЭЦП без установки ПО",
+        "Шаблоны договоров и актов",
+        "Статусы согласования",
+        "Архив документов 5 лет",
+      ],
+    },
+    {
+      id: "antifraud",
+      title: "Антифрод для сайта",
+      subtitle: "Защита платежей и форм от автоматических атак и подбора карт",
+      category: "security",
+      price: 3900,
+      priceNote: "в месяц",
+      icon: "shield",
+      seller: "Beeline Business",
+      features: [
+        "Фильтр ботов и подбора карт",
+        "Правила по геолокации",
+        "Уведомления о подозрительных платежах",
+        "Отчёт по заблокированным попыткам",
+      ],
+    },
+    {
+      id: "hr",
+      title: "Кадровый учёт",
+      subtitle: "Приём, отпуска и табель для команды до 25 человек",
+      category: "accounting",
+      price: 2900,
+      priceNote: "в месяц",
+      icon: "clipboard",
+      seller: "Beeline Business",
+      features: [
+        "Приказы и трудовые договоры",
+        "График отпусков",
+        "Табель учёта времени",
+        "Напоминания о продлении документов",
+      ],
+    },
+    {
+      id: "sms",
+      title: "SMS-рассылка",
+      subtitle: "Сообщения клиентам с именем отправителя вместо номера",
+      category: "ads",
+      price: 1900,
+      priceNote: "в месяц",
+      icon: "star",
+      seller: "Beeline Business",
+      features: [
+        "Имя отправителя вместо номера",
+        "Сегменты по клиентской базе",
+        "Отчёт по доставке",
+        "API для интеграции",
+      ],
+    },
+    {
+      id: "search-ads",
+      title: "Реклама в поиске",
+      subtitle: "Настройка и ведение кампаний под ключ, без агентской комиссии",
+      category: "ads",
+      price: 0,
+      priceLabel: "от 15 000 ₸",
+      priceNote: "бюджет в месяц",
+      icon: "chart",
+      seller: "Beeline Business",
+      features: [
+        "Подбор запросов и объявлений",
+        "Ведение кампании специалистом",
+        "Отчёт по заявкам раз в неделю",
+        "Без агентской комиссии",
+      ],
+    },
+    {
+      id: "office-internet",
+      title: "Интернет для офиса",
+      subtitle: "Выделенный канал до 200 Мбит/с с резервом через мобильную сеть",
+      category: "connect",
+      price: 8900,
+      priceNote: "в месяц",
+      icon: "grid",
+      seller: "Beeline Business",
+      features: [
+        "До 200 Мбит/с без ограничений",
+        "Резервный канал через 4G",
+        "Wi-Fi роутер в аренду",
+        "Выезд инженера при аварии",
+      ],
+    },
+    {
+      id: "doc-storage",
+      title: "Хранилище документов",
+      subtitle: "Общий доступ к договорам и актам для бухгалтера и сотрудников",
+      category: "docs",
+      price: 990,
+      priceNote: "в месяц",
+      icon: "doc",
+      seller: "Beeline Business",
+      features: [
+        "100 ГБ на компанию",
+        "Права доступа по сотрудникам",
+        "История версий",
+        "Поиск по содержимому",
+      ],
+    },
   ],
-  video: {
-    caption: "Кратко рассказываем о преимуществах интернета для бизнеса",
-    imageUrl: "/images/video-cover-workspace.jpg"
-  },
-  businessChoice: {
-    sectionTitle: "Что выбирают предприниматели",
-    interactiveTariff: {
-      basePrice: 1590,
-      speeds: [
-        10,
-        15,
-        25
-      ],
-      defaultSpeedIndex: 1,
-      minGb: 10,
-      maxGb: 500,
-      stepGb: 10,
-      defaultGb: 100
-    },
-    simpleTariffs: [
-      {
-        id: "starlink",
-        title: "Интернет для офиса",
-        subtitle: "Покройте весь офис выгодным качественным интернетом",
-        icon: "🛰️",
-        imageUrl: "/images/tariffs/tariff-office-internet.svg",
-        price: 193000,
-        billing: ""
-      },
-      {
-        id: "office-internet",
-        title: "Корпоративная связь",
-        subtitle: "АТС и бесперебойная связь",
-        icon: "🏢",
-        imageUrl: "/images/tariffs/tariff-corp-call.svg",
-        price: 14290,
-        billing: "/мес"
-      },
-      {
-        id: "jelide",
-        title: "Пакет под все",
-        subtitle: "CRM + 1C + Документооборот",
-        icon: "📶",
-        imageUrl: "/images/tariffs/tariff-all-in-one.svg",
-        price: 115900,
-        billing: ""
-      }
-    ]
-  },
-  bundles: [
-    {
-      id: "bundle-small-office",
-      title: "Начни бизнес с нуля",
-      subtitle: "Всё для продуктивной работы небольшой команды",
-      imageUrl: "/images/icons/solutions/bundle-solo.svg",
-      price: 7900,
-      oldPrice: 15000,
-      seller: "mvpMarket",
-      features: [
-        "Интернет 100 Мбит/с",
-        "Wi-Fi для офиса",
-        "Microsoft 365",
-        "Виртуальная АТС"
-      ]
-    },
-    {
-      id: "bundle-corporate",
-      title: "Всё для эффективной работы команды",
-      subtitle: "Полная ИТ-инфраструктура крупного бизнеса",
-      imageUrl: "/images/icons/solutions/bundle-office.svg",
-      price: 11000,
-      oldPrice: 19900,
-      seller: "mvpMarket",
-      features: [
-        "Интернет 1 Гбит/с",
-        "Корпоративная связь",
-        "Видеонаблюдение Pro",
-        "Облачные серверы"
-      ]
-    },
-    {
-      id: "bundle-cloud-storage",
-      title: "Безопасное хранение данных",
-      subtitle: "Обезопасьте данные своей компании и сотрудников",
-      imageUrl: "/images/icons/solutions/bundle-trade.svg",
-      price: 14990,
-      oldPrice: 24900,
-      seller: "mvpMarket",
-      features: [
-        "Резервное копирование",
-        "100 ГБ хранилища",
-        "Шифрование данных",
-        "Облачные бэкапы"
-      ]
-    }
-  ],
-  aiBanner: {
-    title: "Решите свою задачу с нашим ИИ-ассистентом",
-    subtitle: "Расскажите о задачах — подберём решения для роста и защиты компании.",
-    ctaLabel: "Попробовать сейчас",
-    suggestions: [
-      {
-        emoji: "🧑‍💼",
-        text: "Открываю офис на 30 сотрудников"
-      },
-      {
-        emoji: "📶",
-        text: "Организовать Wi-Fi для офиса"
-      },
-      {
-        emoji: "🏠",
-        text: "Настроить удалённую работу"
-      }
-    ]
-  },
-  footer: {
-    columns: {
-      business: [
-        "Мобильная связь",
-        "Интернет для бизнеса",
-        "Продажи и работа с клиентами",
-        "Управление бизнесом"
-      ],
-      company: [
-        "О нас",
-        "Контакты",
-        "Вакансии",
-        "Партнёрам"
-      ],
-      solutions: [
-        "Готовые пакеты",
-        "Популярные решения",
-        "Новинки"
-      ],
-      help: [
-        "Поддержка",
-        "История заявок",
-        "Частые вопросы"
-      ]
-    },
-    contact: {
-      shortNumber: "7900",
-      phone: "+7 (727) 259 9000"
-    }
-  }
-};
 
-// Версия дефолтного контента. Сохранённая в браузере копия (mvpmarket:content)
-// перекрывает эти значения, поэтому при выпуске нового контента версию нужно
-// поднять — иначе у того, кто уже открывал сайт, останется старый текст, и он
-// будет видеть не то же, что остальные посетители. Правки, сделанные в /admin,
-// при смене версии теряются: сначала экспортируйте JSON.
-export const CONTENT_VERSION = "2026-09-11";
+  plans: {
+    title: "Тарифные планы",
+    subtitle: "Связь, сервисы и поддержка одним счётом. Переход между тарифами — с первого числа",
+    items: [
+      {
+        id: "plan-s",
+        name: "Дело S",
+        audience: "Для самозанятых",
+        price: 4500,
+        priceNote: "В месяц при оплате за год. 5 200 ₸ при месячной оплате.",
+        icon: "s",
+        cta: "Подключить",
+        ctaVariant: "primary",
+        features: [
+          "1 номер, 10 ГБ интернета",
+          "500 минут на все сети",
+          "Приём платежей по QR",
+          "Поддержка в чате",
+        ],
+      },
+      {
+        id: "plan-m",
+        name: "Дело M",
+        audience: "Для ИП с сотрудниками",
+        price: 7900,
+        priceNote: "В месяц при оплате за год. Сервисы бесплатно первые 2 месяца.",
+        icon: "m",
+        badge: "Выбирают чаще",
+        featured: true,
+        cta: "Подключить",
+        ctaVariant: "primary",
+        inherit: "Всё из «Дело S», плюс:",
+        features: [
+          "3 номера в группе, 20 ГБ каждому",
+          "Онлайн-бухгалтерия",
+          "Виртуальная АТС на 3 линии",
+          "Эквайринг по ставке 1,9%",
+        ],
+      },
+      {
+        id: "plan-l",
+        name: "Дело L",
+        audience: "Для растущей команды",
+        price: 13900,
+        priceLabel: "от 13 900 ₸",
+        priceNote: "В месяц. Цена зависит от числа номеров.",
+        icon: "l",
+        cta: "Обсудить с менеджером",
+        ctaVariant: "secondary",
+        inherit: "Всё из «Дело M», плюс:",
+        features: [
+          "5 номеров и безлимитный интернет",
+          "Персональный менеджер",
+          "Выделенный IP и статистика по API",
+        ],
+      },
+    ],
+  },
+
+  cabinet: {
+    title: "Обзор",
+    notice: {
+      text: "По заявке на эквайринг не хватает справки о регистрации ИП.",
+      action: "Загрузить",
+    },
+    metrics: [
+      { id: "balance", label: "Баланс", value: "18 400 ₸", note: "Хватит на 2 месяца", noteTone: "success" },
+      { id: "charge", label: "Списание 1 октября", value: "9 300 ₸", note: "Тариф и 3 сервиса" },
+      { id: "traffic", label: "Интернет на группу", value: "41 / 60 ГБ", progress: 68 },
+      { id: "income", label: "Принято платежей", value: "312 тыс ₸", note: "За сентябрь" },
+    ],
+    documents: [
+      { id: "invoice", label: "Счёт за сентябрь" },
+      { id: "act", label: "Акт сверки" },
+      { id: "contract", label: "Договор № 4821" },
+    ],
+  },
+};

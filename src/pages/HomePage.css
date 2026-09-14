@@ -1,0 +1,19 @@
+.catalog-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 48px;
+  background: var(--bg-sunken);
+  border-radius: var(--r-lg);
+  text-align: center;
+}
+
+.catalog-empty__title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.catalog-empty__note {
+  font-size: 14px;
+  color: var(--ink-2);
+}

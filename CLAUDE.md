@@ -21,13 +21,13 @@
 
 ## Текущее состояние
 
-Каркас. Логика и роуты на месте, экраны — заглушки `ScreenStub`. Дизайн-система
-ещё не подключена: `src/styles/tokens.css` — нейтральная заглушка, и уродливый
-вид сайта это ожидаемо.
+Все экраны собраны на дизайн-системе Beeline Business. Заглушек не осталось.
+Работает сквозной поток: каталог → корзина → заявка → кабинет → кабинет
+поставщика.
 
-Порядок сборки: экспорт ДС → `tokens.css` → UI-кит (`components/ui/`) →
-экраны по одному, начиная с главной. Каждый собранный экран удаляет свою
-заглушку.
+Дизайн-система лежит в `docs/design-system/` (экспорт Claude Design:
+библиотека, DS-BASE.md со сниппетами, шаблон экрана). Токены из её
+helmet-блока перенесены в `src/styles/tokens.css` один в один.
 
 ## Стек
 
@@ -40,15 +40,39 @@ React + Vite, React Router, React Context + localStorage (без Redux, без
 src/
   styles/          tokens.css (переменные дизайна), global.css
   components/
-    layout/        Layout, ScreenStub — каркас, заменяется вместе с ДС
+    ui/            кит по ДС: Button, Card, Chip, Tag/Status, Field,
+                    Price, Checklist, Notice, Metric, Row, IconTile, icons
+    layout/        Layout (топбар + сайдбар), PageHead/SectionHead
+    product/       ProductCard
+    catalog/       PlansSection — колонки тарифов
   context/         Auth, Content, Products, Cart, Favorites, Orders, UI
   hooks/           useLocalStorage
   data/            siteContent.js — единственный источник контента главной
   pages/           по одной странице на роут, включая pages/seller/*
 ```
 
-Появятся по мере сборки: `components/ui/`, `components/catalog/`,
-`components/product/`, `components/overlay/`, `components/admin/`.
+Появятся по мере надобности: `components/overlay/` (оверлеи в ДС пока не
+описаны).
+
+## Правила дизайн-системы (не нарушать)
+
+Полный список — `docs/design-system/DS-RULES.md`. Главное:
+
+- Фон страницы `--bg` (тёплый off-white), поверхности `--surface`. Чистый
+  белый фон страницы не использовать.
+- Карточка без тени; тень `--shadow-sm` только на hover, без подъёма и
+  масштабирования.
+- Акцент действия — только чёрный `--accent`. Синего нет. Жёлтый `--brand` —
+  бренд-маркер (лого, один чип), не кнопка.
+- Одна primary-кнопка на экран.
+- Serif (`--font-serif`) — заголовки и метрики. Цены и суммы — sans 600 +
+  `font-variant-numeric: tabular-nums`. Serif для цен не использовать.
+- Статусы — цветной текст плюс точка 6px. Тонированный фон (`--*-bg`) — только
+  для одной полосы-уведомления на экран.
+- Иконки линейные: `fill="none"`, `stroke="currentColor"`, 1.4 на 15-16px и
+  1.25 на 20-28px. Залитых, цветных и эмодзи нет.
+- Отступы кратны 4: внутри карточек 20-28px, между блоками 32-72px.
+- Деньги в тенге, разряд обычным пробелом: `7 900 ₸`.
 
 ## Правила работы с кодом
 

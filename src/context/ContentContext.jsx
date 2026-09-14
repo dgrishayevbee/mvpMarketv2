@@ -88,103 +88,55 @@ export function ContentProvider({ children }) {
     const removeItem = (key, id) =>
       setContent((c) => ({ ...c, [key]: c[key].filter((item) => item.id !== id) }));
 
+    // Тарифы лежат вложенно (plans.items), поэтому у них свои три метода.
+    const updatePlans = (patch) => updateSection("plans", patch);
+
+    const addPlan = (item) =>
+      setContent((c) => ({
+        ...c,
+        plans: { ...c.plans, items: [...c.plans.items, { id: makeId("plan"), ...item }] },
+      }));
+
+    const updatePlan = (id, patch) =>
+      setContent((c) => ({
+        ...c,
+        plans: {
+          ...c.plans,
+          items: c.plans.items.map((t) => (t.id === id ? { ...t, ...patch } : t)),
+        },
+      }));
+
+    const removePlan = (id) =>
+      setContent((c) => ({
+        ...c,
+        plans: { ...c.plans, items: c.plans.items.filter((t) => t.id !== id) },
+      }));
+
     return {
       content,
 
-      updateHero: (patch) => updateSection("hero", patch),
-      updateVideo: (patch) => updateSection("video", patch),
-      updateAiBanner: (patch) => updateSection("aiBanner", patch),
+      updateSection,
+      updateBrand: (patch) => updateSection("brand", patch),
+      updateCatalog: (patch) => updateSection("catalog", patch),
+      updateSupport: (patch) => updateSection("support", patch),
+      updateCabinet: (patch) => updateSection("cabinet", patch),
 
       addCategory: (item) => addItem("categories", item, "cat"),
       updateCategory: (id, patch) => updateItem("categories", id, patch),
       removeCategory: (id) => removeItem("categories", id),
 
-      addQuickLink: (item) => addItem("quickLinks", item, "quick"),
-      updateQuickLink: (id, patch) => updateItem("quickLinks", id, patch),
-      removeQuickLink: (id) => removeItem("quickLinks", id),
-
-      addSupportLink: (item) => addItem("supportLinks", item, "support"),
-      updateSupportLink: (id, patch) => updateItem("supportLinks", id, patch),
-      removeSupportLink: (id) => removeItem("supportLinks", id),
-
-      addSegment: (item) => addItem("segments", item, "seg"),
-      updateSegment: (id, patch) => updateItem("segments", id, patch),
-      removeSegment: (id) => {
-        if (id === "all") return;
-        removeItem("segments", id);
-      },
-
       addSolution: (item) => addItem("solutions", item, "sol"),
       updateSolution: (id, patch) => updateItem("solutions", id, patch),
       removeSolution: (id) => removeItem("solutions", id),
 
-      updateBusinessChoiceTitle: (sectionTitle) =>
-        setContent((c) => ({ ...c, businessChoice: { ...c.businessChoice, sectionTitle } })),
-      updateInteractiveTariff: (patch) =>
-        setContent((c) => ({
-          ...c,
-          businessChoice: {
-            ...c.businessChoice,
-            interactiveTariff: { ...c.businessChoice.interactiveTariff, ...patch },
-          },
-        })),
-      addSimpleTariff: (item) =>
-        setContent((c) => ({
-          ...c,
-          businessChoice: {
-            ...c.businessChoice,
-            simpleTariffs: [...c.businessChoice.simpleTariffs, { id: makeId("tariff"), ...item }],
-          },
-        })),
-      updateSimpleTariff: (id, patch) =>
-        setContent((c) => ({
-          ...c,
-          businessChoice: {
-            ...c.businessChoice,
-            simpleTariffs: c.businessChoice.simpleTariffs.map((t) =>
-              t.id === id ? { ...t, ...patch } : t
-            ),
-          },
-        })),
-      removeSimpleTariff: (id) =>
-        setContent((c) => ({
-          ...c,
-          businessChoice: {
-            ...c.businessChoice,
-            simpleTariffs: c.businessChoice.simpleTariffs.filter((t) => t.id !== id),
-          },
-        })),
+      addNavItem: (item) => addItem("nav", item, "nav"),
+      updateNavItem: (id, patch) => updateItem("nav", id, patch),
+      removeNavItem: (id) => removeItem("nav", id),
 
-      addBundle: (item) => addItem("bundles", item, "bundle"),
-      updateBundle: (id, patch) => updateItem("bundles", id, patch),
-      removeBundle: (id) => removeItem("bundles", id),
-
-      addSuggestion: (item) =>
-        setContent((c) => ({
-          ...c,
-          aiBanner: { ...c.aiBanner, suggestions: [...c.aiBanner.suggestions, item] },
-        })),
-      updateSuggestion: (index, patch) =>
-        setContent((c) => ({
-          ...c,
-          aiBanner: {
-            ...c.aiBanner,
-            suggestions: c.aiBanner.suggestions.map((s, i) => (i === index ? { ...s, ...patch } : s)),
-          },
-        })),
-      removeSuggestion: (index) =>
-        setContent((c) => ({
-          ...c,
-          aiBanner: { ...c.aiBanner, suggestions: c.aiBanner.suggestions.filter((_, i) => i !== index) },
-        })),
-
-      updateFooterColumn: (columnKey, items) =>
-        setContent((c) => ({
-          ...c,
-          footer: { ...c.footer, columns: { ...c.footer.columns, [columnKey]: items } },
-        })),
-      updateFooterContact: (patch) =>
-        setContent((c) => ({ ...c, footer: { ...c.footer, contact: { ...c.footer.contact, ...patch } } })),
+      updatePlans,
+      addPlan,
+      updatePlan,
+      removePlan,
 
       exportJson: () => JSON.stringify(content, null, 2),
       importJson: (text) => {

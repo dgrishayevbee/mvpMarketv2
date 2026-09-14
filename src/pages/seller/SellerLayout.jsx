@@ -1,16 +1,32 @@
-import { Outlet, Link } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
+import "./SellerLayout.css";
 
 /*
-  Каркас кабинета продавца. Собственная навигация появится вместе
-  с дизайн-системой; пока это просто вложенный Outlet.
+  Кабинет поставщика. Внутренняя навигация — сегменты по правилам ДС:
+  плотные строки, активный пункт на --bg-sunken.
 */
+const TABS = [
+  { to: "/seller", label: "Сводка", end: true },
+  { to: "/seller/products", label: "Товары" },
+  { to: "/seller/orders", label: "Заявки" },
+];
+
 export function SellerLayout() {
   return (
-    <div className="seller-layout">
-      <nav className="seller-layout__nav">
-        <Link to="/seller">Сводка</Link>
-        <Link to="/seller/products">Товары</Link>
-        <Link to="/seller/orders">Заказы</Link>
+    <div className="seller">
+      <nav className="seller__tabs">
+        {TABS.map((tab) => (
+          <NavLink
+            key={tab.to}
+            to={tab.to}
+            end={tab.end}
+            className={({ isActive }) =>
+              ["seller__tab", isActive ? "seller__tab--active" : ""].filter(Boolean).join(" ")
+            }
+          >
+            {tab.label}
+          </NavLink>
+        ))}
       </nav>
       <Outlet />
     </div>
