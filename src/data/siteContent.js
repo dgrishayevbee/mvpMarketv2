@@ -6,7 +6,7 @@
 // Beeline Business: каталог сервисов для ИП и самозанятых, тарифные пакеты,
 // личный кабинет. Деньги в тенге, разряд — обычный пробел.
 
-export const CONTENT_VERSION = "v2-ds-1";
+export const CONTENT_VERSION = "v2-ds-2";
 
 export const defaultContent = {
   brand: {
