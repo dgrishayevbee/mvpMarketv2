@@ -1,5 +1,6 @@
 .product-card {
-  gap: 14px;
+  gap: 16px;
+  padding: 22px;
 }
 
 .product-card__top {
@@ -16,17 +17,10 @@
 }
 
 .product-card__title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--ink);
-  text-decoration: none;
-}
-
-.product-card__title:hover {
-  text-decoration: underline;
-  text-decoration-color: var(--border-strong);
-  text-underline-offset: 3px;
 }
 
 .product-card__subtitle {
@@ -35,18 +29,13 @@
   color: var(--ink-2);
 }
 
-.product-card__foot {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: auto;
-  padding-top: 6px;
-}
-
+/*
+  320px вместо 280: карточка стала короче, и на трёх колонках вместо четырёх
+  шесть решений ложатся ровно в два ряда, без рваного хвоста.
+*/
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 16px;
   align-items: stretch;
 }

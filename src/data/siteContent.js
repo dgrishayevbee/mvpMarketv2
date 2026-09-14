@@ -3,7 +3,7 @@
 // используются, пока в localStorage нет сохранённых правок.
 //
 // Структура и тексты собраны по эталонным экранам дизайн-системы
-// Beeline Business: каталог сервисов для ИП и самозанятых, тарифы «Дело»,
+// Beeline Business: каталог сервисов для ИП и самозанятых, тарифные пакеты,
 // личный кабинет. Деньги в тенге, разряд — обычный пробел.
 
 export const CONTENT_VERSION = "v2-ds-1";
@@ -56,23 +56,10 @@ export const defaultContent = {
     { id: "security", label: "Безопасность" },
   ],
 
+  // По одному решению на категорию: каталог держится компактным, и ни один
+  // чип-фильтр не ведёт в пустоту. Остальные позиции заводятся через /admin
+  // или кабинет поставщика.
   solutions: [
-    {
-      id: "accounting-online",
-      title: "Онлайн-бухгалтерия",
-      subtitle: "Расчёт налогов, отчётность и напоминания о сроках для ИП на упрощёнке",
-      category: "accounting",
-      price: 4900,
-      priceNote: "в месяц",
-      icon: "book",
-      seller: "Beeline Business",
-      features: [
-        "Налоговый календарь с напоминаниями",
-        "Отчётность в КГД в один клик",
-        "Расчёт платежей за себя и сотрудников",
-        "Выгрузка первички бухгалтеру",
-      ],
-    },
     {
       id: "acquiring",
       title: "Эквайринг",
@@ -92,6 +79,22 @@ export const defaultContent = {
       ],
     },
     {
+      id: "accounting-online",
+      title: "Онлайн-бухгалтерия",
+      subtitle: "Расчёт налогов, отчётность и напоминания о сроках для ИП на упрощёнке",
+      category: "accounting",
+      price: 4900,
+      priceNote: "в месяц",
+      icon: "book",
+      seller: "Beeline Business",
+      features: [
+        "Налоговый календарь с напоминаниями",
+        "Отчётность в КГД в один клик",
+        "Расчёт платежей за себя и сотрудников",
+        "Выгрузка первички бухгалтеру",
+      ],
+    },
+    {
       id: "pbx",
       title: "Виртуальная АТС",
       subtitle: "Один номер на всех сотрудников, запись разговоров и статистика",
@@ -105,38 +108,6 @@ export const defaultContent = {
         "Запись и хранение разговоров 90 дней",
         "Голосовое меню и переадресация",
         "Статистика по сотрудникам",
-      ],
-    },
-    {
-      id: "kassa",
-      title: "Онлайн-касса",
-      subtitle: "Фискализация чеков и отчёты в КГД без отдельного оборудования",
-      category: "payments",
-      price: 2500,
-      priceNote: "в месяц",
-      icon: "box",
-      seller: "Beeline Business",
-      features: [
-        "Фискализация чеков онлайн",
-        "Отчёты в КГД автоматически",
-        "Работа с телефона или планшета",
-        "Номенклатура до 10 000 позиций",
-      ],
-    },
-    {
-      id: "analytics",
-      title: "Аналитика продаж",
-      subtitle: "Выручка, средний чек и топ-товары по данным кассы и эквайринга",
-      category: "payments",
-      price: 0,
-      priceNote: "в тарифе",
-      icon: "chart",
-      seller: "Beeline Business",
-      features: [
-        "Выручка по дням и точкам",
-        "Средний чек и динамика",
-        "Топ-товары и возвраты",
-        "Выгрузка в таблицу",
       ],
     },
     {
@@ -172,38 +143,6 @@ export const defaultContent = {
       ],
     },
     {
-      id: "hr",
-      title: "Кадровый учёт",
-      subtitle: "Приём, отпуска и табель для команды до 25 человек",
-      category: "accounting",
-      price: 2900,
-      priceNote: "в месяц",
-      icon: "clipboard",
-      seller: "Beeline Business",
-      features: [
-        "Приказы и трудовые договоры",
-        "График отпусков",
-        "Табель учёта времени",
-        "Напоминания о продлении документов",
-      ],
-    },
-    {
-      id: "sms",
-      title: "SMS-рассылка",
-      subtitle: "Сообщения клиентам с именем отправителя вместо номера",
-      category: "ads",
-      price: 1900,
-      priceNote: "в месяц",
-      icon: "star",
-      seller: "Beeline Business",
-      features: [
-        "Имя отправителя вместо номера",
-        "Сегменты по клиентской базе",
-        "Отчёт по доставке",
-        "API для интеграции",
-      ],
-    },
-    {
       id: "search-ads",
       title: "Реклама в поиске",
       subtitle: "Настройка и ведение кампаний под ключ, без агентской комиссии",
@@ -220,38 +159,6 @@ export const defaultContent = {
         "Без агентской комиссии",
       ],
     },
-    {
-      id: "office-internet",
-      title: "Интернет для офиса",
-      subtitle: "Выделенный канал до 200 Мбит/с с резервом через мобильную сеть",
-      category: "connect",
-      price: 8900,
-      priceNote: "в месяц",
-      icon: "grid",
-      seller: "Beeline Business",
-      features: [
-        "До 200 Мбит/с без ограничений",
-        "Резервный канал через 4G",
-        "Wi-Fi роутер в аренду",
-        "Выезд инженера при аварии",
-      ],
-    },
-    {
-      id: "doc-storage",
-      title: "Хранилище документов",
-      subtitle: "Общий доступ к договорам и актам для бухгалтера и сотрудников",
-      category: "docs",
-      price: 990,
-      priceNote: "в месяц",
-      icon: "doc",
-      seller: "Beeline Business",
-      features: [
-        "100 ГБ на компанию",
-        "Права доступа по сотрудникам",
-        "История версий",
-        "Поиск по содержимому",
-      ],
-    },
   ],
 
   plans: {
@@ -260,7 +167,7 @@ export const defaultContent = {
     items: [
       {
         id: "plan-s",
-        name: "Дело S",
+        name: "Kense Solo",
         audience: "Для самозанятых",
         price: 4500,
         priceNote: "В месяц при оплате за год. 5 200 ₸ при месячной оплате.",
@@ -276,7 +183,7 @@ export const defaultContent = {
       },
       {
         id: "plan-m",
-        name: "Дело M",
+        name: "Business Office",
         audience: "Для ИП с сотрудниками",
         price: 7900,
         priceNote: "В месяц при оплате за год. Сервисы бесплатно первые 2 месяца.",
@@ -285,7 +192,7 @@ export const defaultContent = {
         featured: true,
         cta: "Подключить",
         ctaVariant: "primary",
-        inherit: "Всё из «Дело S», плюс:",
+        inherit: "Всё из «Kense Solo», плюс:",
         features: [
           "3 номера в группе, 20 ГБ каждому",
           "Онлайн-бухгалтерия",
@@ -295,7 +202,7 @@ export const defaultContent = {
       },
       {
         id: "plan-l",
-        name: "Дело L",
+        name: "Business Trade",
         audience: "Для растущей команды",
         price: 13900,
         priceLabel: "от 13 900 ₸",
@@ -303,7 +210,7 @@ export const defaultContent = {
         icon: "l",
         cta: "Обсудить с менеджером",
         ctaVariant: "secondary",
-        inherit: "Всё из «Дело M», плюс:",
+        inherit: "Всё из «Business Office», плюс:",
         features: [
           "5 номеров и безлимитный интернет",
           "Персональный менеджер",

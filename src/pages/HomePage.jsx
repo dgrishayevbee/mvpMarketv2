@@ -150,7 +150,6 @@ export function HomePage() {
                 product={product}
                 categoryLabel={categoryLabel(product.category)}
                 inCart={inCart(product.id)}
-                onAdd={addItem}
               />
             ))}
           </div>
