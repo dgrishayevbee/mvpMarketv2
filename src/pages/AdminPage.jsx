@@ -16,6 +16,7 @@ import "./AdminPage.css";
 export function AdminPage() {
   const {
     content,
+    updateHero,
     updateCatalog,
     updateSupport,
     addCategory,
@@ -75,6 +76,37 @@ export function AdminPage() {
       />
 
       {message && <Notice tone="info">{message}</Notice>}
+
+      <section className="section">
+        <SectionHead
+          title="Приветствие и AI-поиск"
+          subtitle="Блок над каталогом: заголовок, пояснение и фразы, которые набираются в поле"
+        />
+        <Card>
+          <Field
+            label="Заголовок"
+            value={content.hero.greeting}
+            onChange={(e) => updateHero({ greeting: e.target.value })}
+          />
+          <Field
+            as="textarea"
+            label="Пояснение"
+            value={content.hero.subtitle}
+            onChange={(e) => updateHero({ subtitle: e.target.value })}
+          />
+          <Field
+            as="textarea"
+            label="Фразы поиска"
+            value={content.hero.queries.join("\n")}
+            onChange={(e) =>
+              updateHero({
+                queries: e.target.value.split("\n").map((line) => line.trim()).filter(Boolean),
+              })
+            }
+            hint="По одной фразе в строке — они набираются и стираются по очереди"
+          />
+        </Card>
+      </section>
 
       <section className="section">
         <SectionHead title="Каталог" subtitle="Заголовок экрана и подпись под ним" />

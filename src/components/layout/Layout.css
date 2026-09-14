@@ -181,12 +181,17 @@
   font-size: 12px;
 }
 
+/*
+  Ширина рабочей области ограничивается max-width, а не width: у flex-элемента
+  с flex-grow объявленная width игнорируется, и на широком экране область
+  расползалась до 1714px вместо 1180px из Screen Template.
+*/
 .content {
   flex: 1 1 0;
   min-width: 0;
+  max-width: calc(var(--content-max) + 64px);
   padding: 32px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: min(100%, calc(var(--content-max) + 64px));
 }

@@ -117,6 +117,7 @@ export function ContentProvider({ children }) {
 
       updateSection,
       updateBrand: (patch) => updateSection("brand", patch),
+      updateHero: (patch) => updateSection("hero", patch),
       updateCatalog: (patch) => updateSection("catalog", patch),
       updateSupport: (patch) => updateSection("support", patch),
       updateCabinet: (patch) => updateSection("cabinet", patch),
