@@ -1,0 +1,32 @@
+/*
+  ЗАГЛУШКА. Ждёт экспорт новой дизайн-системы.
+
+  Здесь лежат только те переменные, без которых не отрисуется global.css
+  и заглушки страниц. Значения намеренно нейтральные и некрасивые: это
+  видимый признак того, что настоящая ДС ещё не подключена.
+
+  Когда придёт экспорт — файл переписывается целиком под него, а компоненты
+  не трогаются: они читают переменные, а не значения.
+*/
+
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #f5f5f5;
+  --color-border: #e0e0e0;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #6b6b6b;
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+
+  --text-body-size: 15px;
+  --text-body-line: 1.5;
+
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --radius-md: 8px;
+}
