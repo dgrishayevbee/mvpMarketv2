@@ -7,10 +7,15 @@ import { SectionHead } from "../layout/PageHead.jsx";
 import "./PlansSection.css";
 
 /*
-  Тарифные колонки ДС: одна карточка, внутри колонки, разделённые тонкой
-  линией (не рамками). Внутри колонки порядок строгий: иконка 28px →
-  название serif 34px → подзаголовок → цена sans 600 → сноска →
-  кнопка на всю ширину → линия → чеклист «Всё из …, плюс:».
+  Тарифные пакеты. Порядок внутри колонки задан ДС: иконка 28px → название
+  serif 34px → подзаголовок → цена sans 600 → сноска → кнопка на всю ширину
+  → линия → чеклист «Всё из …, плюс:».
+
+  Каждая часть — отдельный элемент общей сетки, а не вложенный блок: колонки
+  делят одни и те же строки (subgrid), поэтому цены, кнопки и чеклисты стоят
+  на одной линии независимо от того, что у одного пакета есть бейдж, а у
+  другого сноска в две строки. Вложенные обёртки это ломали бы: высота
+  выравнивалась бы только у обёрток, а не у строк внутри них.
 */
 export function PlansSection({ plans, onChoose }) {
   return (
@@ -27,18 +32,16 @@ export function PlansSection({ plans, onChoose }) {
             >
               <PlanIcon />
 
-              <div className="plan__head">
-                <div className="plan__name-row">
-                  <span className="plan__name serif">{plan.name}</span>
-                  {plan.badge && <Tag tone="solid">{plan.badge}</Tag>}
-                </div>
-                <span className="plan__audience">{plan.audience}</span>
+              <div className="plan__name-row">
+                <span className="plan__name serif">{plan.name}</span>
+                {plan.badge && <Tag tone="solid">{plan.badge}</Tag>}
               </div>
 
-              <div className="plan__price">
-                <Price value={plan.price} label={plan.priceLabel} />
-                <span className="plan__note">{plan.priceNote}</span>
-              </div>
+              <span className="plan__audience">{plan.audience}</span>
+
+              <Price value={plan.price} label={plan.priceLabel} />
+
+              <span className="plan__note">{plan.priceNote}</span>
 
               <Button full variant={plan.ctaVariant || "primary"} onClick={() => onChoose(plan)}>
                 {plan.cta}
